@@ -24,3 +24,17 @@ echo 'setxkbmap -model pc105 -layout us -option caps:ctrl_modifier' >> ~/.zshrc
 echo 'xinput set-button-map 7 1 2 3 5 4 6 7 8 9 10 11' >> ~/.zshrc
 
 # TODO: Install desired languages and associated tooling
+# Setup for pyenv and pyenv-virtualenv
+git clone https://github.com/yyuu/pyenv $home/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+git clone https://github.com/yyuu/pyenv-virtualenv $home/.pyenv/plugins/pyenv-virtualenv
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
+
+
+# Last of all, update *everything*.
+$PKG_MGR update
+
+# All done!
+exit
