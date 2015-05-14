@@ -1,6 +1,6 @@
 # This is my configuration sequence. It assumes the value of `$PKG_MGR` is
-# correct: probably `apt-get` or `yum`. It must be called as `sudo`. It assumes
-# that $ARCH is set as either `x86` or `x86_64`.
+# correct: probably `apt-get` or `yum`. It assumes that $ARCH is set as either
+# `x86` or `x86_64`.
 
 # Get user info
 user=$(whoami)
@@ -11,7 +11,7 @@ mkdir -p $home/bin $home/tools
 
 # Install dev tools. Git in particular is basically necessary for a bunch of the
 # other stuff.
-$PKG_MGR install git mercurial curl wget
+sudo $PKG_MGR install zsh git mercurial curl wget
 
 # TODO: Install and start Dropbox
 cd $home && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH | tar xzf -"
@@ -20,8 +20,8 @@ cd $home/bin && { curl -O "https://www.dropbox.com/download??dl=packages/dropbox
 
 # Install zsh. Once it's installed, make it the default user shell; then set up
 # oh-my-zsh.
-$PKG_MGR install zsh
-chsh -s /bin/zsh
+sudo $PKG_MGR install zsh
+sudo chsh -s /bin/zsh
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 
 # Install the hg prompt plugin used by the krycho.zsh-theme
@@ -40,7 +40,7 @@ echo 'xinput set-button-map 7 1 2 3 5 4 6 7 8 9 10 11' >> $home/.zshrc
 # TODO: Install desired languages and associated tooling
 # Python dependencies
 # TODO: make this not explicitly depend on Fedora/yum
-$PKG_MGR install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel
+sudo $PKG_MGR install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel
 
 # Setup for pyenv and pyenv-virtualenv
 git clone https://github.com/yyuu/pyenv $home/.pyenv
@@ -55,7 +55,7 @@ exec zsh
 pyenv install 3.4.3  # TODO: configure this to install desired version(s).
 
 # Last of all, update *everything*.
-$PKG_MGR update
+sudo $PKG_MGR update
 
 # All done!
 exit
