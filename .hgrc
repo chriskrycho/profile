@@ -5,7 +5,7 @@ committer_counts = !hg log --template "{author|person}\n" | sort | uniq -c | sor
 nudge = push --rev .
 
 [extensions]
-collapse = /Users/chris/tools/hg_extensions/collapse.py
+collapse = ~/tools/hg_extensions/collapse.py
 color =
 convert =
 graphlog =
@@ -13,7 +13,7 @@ extdiff =
 histedit =
 pager =
 progress =
-prompt = /Users/chris/tools/hg_extensions/hg-prompt/prompt.py
+prompt = ~/tools/hg_extensions/hg-prompt/prompt.py
 purge =
 rebase =
 record =

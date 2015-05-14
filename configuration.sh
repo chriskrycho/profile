@@ -25,13 +25,13 @@ chsh -s /bin/zsh
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 
 # Install the hg prompt plugin used by the krycho.zsh-theme
-hg clone https://bitbucket.org/sjl/hg-prompt/ tools/hg-extensions/hg-prompt
+hg clone https://bitbucket.org/sjl/hg-prompt/ tools/hg_extensions/hg-prompt
 
 # Clone my profile configuration.
 git clone https://github.com/chriskrycho/profile
-ln -s "$home/profile/.zshrc" "$home/.zshrc"
-ln -s "$home/profile/.hgrc" "$home/.hgrc"
-ln -s "$home/profile/krycho.zsh-theme" "$home/.oh-my-zsh/themes/"
+ln -sf "$home/profile/.zshrc" "$home/.zshrc"
+ln -sf "$home/profile/.hgrc" "$home/.hgrc"
+ln -sf "$home/profile/krycho.zsh-theme" "$home/.oh-my-zsh/themes/"
 
 # Set keyboard mapping to make Ctrl/Caps-lock flipped (and thus, tolerable)
 echo 'setxkbmap -model pc105 -layout us -option caps:ctrl_modifier' >> $home/.zshrc
