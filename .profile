@@ -35,6 +35,9 @@ function md2pdf() { pandoc -S -s -f markdown_mmd+line_blocks+startnum --latex-en
 alias bw='open -a Byword.app'
 alias word='open -a Microsoft\ Word.app'
 alias marked='open -a Marked\ 2.app'
+alias sourcetree='open -a SourceTree.app'
+alias tree='sourcetree'
+alias tower='open -a Tower.app'
 
 # Check for updates on pip installed software
 alias pip_v="pip freeze --local | sed 's/==.*//' | xargs pip install -U"
