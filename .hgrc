@@ -1,0 +1,53 @@
+[alias]
+heads = heads --active
+close_and_merge = !hg up $1 && hg commit --close-branch -m "$3" && hg up $2 && hg merge $1 && hg commit -m "$3"
+committer_counts = !hg log --template "{author|person}\n" | sort | uniq -c | sort -nr
+nudge = push --rev .
+
+[extensions]
+collapse = /Users/chris/tools/hg_extensions/collapse.py
+color =
+convert =
+graphlog =
+extdiff =
+histedit =
+pager =
+progress =
+prompt = /Users/chris/tools/hg_extensions/hg-prompt/prompt.py
+purge =
+rebase =
+record =
+shelve =
+strip =
+
+[extdiff]
+cmd.ksdiff = /usr/local/bin/ksdiff
+opts.ksdiff = --changeset --wait --filelist
+cmd.bcomp = /usr/local/bin/bcomp
+
+[merge-tools]
+Kaleidoscope.executable = /usr/local/bin/ksdiff
+Kaleidoscope.args = --merge --output $output --base $base -- $local $other
+
+BeyondCompare.executable = /usr/local/bin/bcomp
+BeyondCompare.args = $local $other $base $output
+BeyondCompare.priority = 1
+BeyondCompare.premerge = True
+BeyondCompare.gui = True
+
+[pager]
+pager = less
+attend = log
+
+[trusted]
+users = chris, root
+groups = staff, admin
+
+[ui]
+username = Chris Krycho <chris@krycho.com>
+merge = Kaleidoscope
+
+editor = subl -w
+
+# Use compression
+ssh = ssh -C
