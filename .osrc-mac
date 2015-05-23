@@ -1,0 +1,49 @@
+# OS-specific configuration
+
+# Set path.
+RUBY_DIR=/usr/local/opt/ruby/bin
+NPM_DIR=/usr/local/share/npm/bin
+PSQL_DIR=/Applications/Postgres.app/Contents/Versions/9.3/bin
+PATH=$HOME/usr/bin:/usr/local/bin:$RUBY_DIR:$NPM_DIR:$PSQL_DIR:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin
+export PATH=$PATH:.
+
+# Quick launch apps
+alias bw='open -a Byword.app'
+alias word='open -a Microsoft\ Word.app'
+alias marked='open -a Marked\ 2.app'
+alias sourcetree='open -a SourceTree.app'
+alias tree='sourcetree'
+alias tower='open -a Tower.app'
+
+# Other OS-install-dependent configuration
+alias vless="vim -u /usr/share/vim/vim73/macros/less.vim"
+
+# Set paths for nvm and alias iojs to preferred behavior.
+export NVM_DIR=$(brew --prefix)/var/nvm
+source $(brew --prefix nvm)/nvm.sh
+alias iojs="iojs --use-strict"
+
+# toggle iTerm Dock icon
+function toggleiTerm() {
+    pb='/usr/libexec/PlistBuddy'
+    iTerm='/Applications/dev-tools/iTerm.app/Contents/Info.plist'
+    
+    echo "Do you wish to hide iTerm in Dock?"
+    select ync in "Hide" "Show" "Cancel"; do
+        case $ync in
+            'Hide' )
+                $pb -c "Add :LSUIElement bool true" $iTerm
+                echo "relaunch iTerm to take effectives"
+                break
+                ;;
+            'Show' )
+                $pb -c "Delete :LSUIElement" $iTerm
+                echo "run killall 'iTerm' to exit, and then relaunch it"
+                break
+                ;;
+        'Cancel' )
+            break
+            ;;
+        esac
+    done
+}
