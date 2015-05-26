@@ -17,7 +17,6 @@ import sys
 HOME = Path(os.environ['HOME'])
 SITE = HOME / 'Sites' / 'chriskrycho.com' / 'current'
 CONTENT = SITE / 'content'
-MICRO = SITE / 'content' / 'micro'
 
 # Existing formats.
 # TODO: create a mapping from post type to internal fields, e.g.:
@@ -40,24 +39,23 @@ DATE_COMMON = "{:04}-{:02}-{:02}"
 def generate_post(args=None):
     args = args if args is not None else __parse_args()
     
-    directory = __get_directory(args.category)
+    directory = __get_directory(args.category, args.type)
     file_name = __get_file_name(args.name)
     header = __get_header(args.name, args.category, args.tags, args.type)
     body = __get_body(args.direct_input)
     
     content = header + body
-    path = directory / file_name
-    print(content, path); exit()
+    path = (directory / file_name).with_suffix('.md')
     with path.open('w') as f:
         f.write(content)
 
     # Edit the post if it was not generated via direct input.
     if not args.direct_input:
         edit_line = len(content.splitlines())
-        subprocess.call([args.editor, str(file_name) + ':{}'.format(edit_line)])
+        subprocess.call([args.editor, str(path) + ':{}'.format(edit_line)])
 
 
-def __get_directory(category=None):
+def __get_directory(category=None, type=None):
     # Start with the blog content directory.
     directory = CONTENT
 
@@ -68,13 +66,7 @@ def __get_directory(category=None):
     # Otherwise, an actual category may be allowed.
     elif category is not None:
         directory /= category
-    if category is None:
-        if type is None:
-            directory = CONTENT
-
-        elif type == 'micro':
-            directory = CONTENT
-    directory = CONTENT if category is None else CONTENT / category
+    
     return directory
 
 
