@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Generate a new micro post in chriskrycho.com.
 
 Note: this is *incredibly* specific to my current configuration.
