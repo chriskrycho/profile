@@ -1,6 +1,9 @@
-# This is my configuration sequence. It assumes the value of `$PKG_MGR` is
+#!/bin/bash
+# This is my Linux configuration sequence. It assumes the value of `$PKG_MGR` is
 # correct: probably `apt-get` or `yum`. It assumes that $ARCH is set as either
-# `x86` or `x86_64`.
+# `x86` or `x86_64`. It assumes that *no previous customization has been done*.
+# TODO: it is also out of date! It should link the `.profile`, `.zshrc`, and
+#       `.osrc-<distro>` items below under "Clone my profile configuration."
 
 # Get user info
 user=$(whoami)
