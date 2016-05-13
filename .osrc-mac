@@ -1,7 +1,7 @@
 # ----- OS-specific configuration ----- #
 
 # Set path with Mac-specific installation locations..
-PSQL_DIR=/Applications/Postgres.app/Contents/Versions/9.4/bin
+PSQL_DIR=/Applications/Postgres.app/Contents/Versions/9.5/bin
 export PATH=$PSQL_DIR:$PATH
 
 # Quick launch apps

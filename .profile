@@ -16,3 +16,5 @@ export EDITOR=atom
 eval "$(hub alias -s)"
 
 alias takeover="tmux detach -a"
+
+[ -s "/Users/chris/.dnx/dnvm/dnvm.sh" ] && . "/Users/chris/.dnx/dnvm/dnvm.sh" # Load dnvm
