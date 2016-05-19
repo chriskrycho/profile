@@ -35,7 +35,7 @@ function fish_prompt
   set_color blue
   printf '%s' (hostname)
   set_color normal
-  printf ':'
+  printf ' '
 
   set_color $fish_color_cwd
   printf '%s' (prompt_pwd)
@@ -52,6 +52,12 @@ end
 function fish_right_prompt
   printf (date "+$c2%H$c0:$c2%M$c0:$c2%S")
 end
+
+# Updates to PATH
+set -gx PATH $HOME/bin $PATH
+
+# Aliases
+alias git "hub"
 
 # Tool setup, completion, etc.
 status --is-interactive; and source (pyenv init -|psub)
