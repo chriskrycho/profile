@@ -54,13 +54,14 @@ function fish_right_prompt
 end
 
 # Updates to PATH
-set -gx PATH $HOME/bin $PATH
+set -gx PATH $HOME/bin $HOME/.cargo/bin $PATH
 
 # Aliases
 alias git "hub"
+alias vless "vim -u /usr/share/vim/vim73/macros/less.vim"
 
 # Tool setup, completion, etc.
 status --is-interactive; and source (pyenv init -|psub)
 status --is-interactive; and source (nodenv init -|psub)
 status --is-interactive; and source (rbenv init -|psub)
-gulp --completion=fish | source
+status --is-interactive; and gulp --completion=fish | source
