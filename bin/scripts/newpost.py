@@ -32,6 +32,7 @@ TEMPLATE_CATEGORY = "Category: {category}\n"
 TEMPLATE_TAGS = "Tags: {tags}\n"
 TEMPLATE_SLUG = "Slug: {slug}\n"
 TEMPLATE_TYPE = "Template: formats/{post_type}\n"
+TEMPLATE_DRAFT = "Status: draft\n"
 
 # Date formatting
 DATE_COMMON = "{:04}-{:02}-{:02}"
@@ -40,15 +41,19 @@ DATE_COMMON = "{:04}-{:02}-{:02}"
 def generate_post(args=None):
     args = args if args is not None else __parse_args()
 
-    time_for_file, time_for_meta, date_for_dir = __get_date_formats()
+    fmt_times = __get_date_formats()
 
-    base_directory = __get_directory(date_for_dir, args.category, args.post_type)
-    file_name = args.name if args.name else time_for_file
-    header = __get_header(time_for_meta, time_for_file, **vars(args))
+    base_directory = __get_dir(fmt_times['dir'], args.category, args.post_type)
+    file_name = args.name if args.name else fmt_times['file']
+    header = __get_header(fmt_times, **vars(args))
     body = __get_body(args.direct_input)
 
     content = header + body
     path = (base_directory / file_name).with_suffix('.md')
+
+    if not base_directory.exists():
+        base_directory.mkdir(parents=True)
+
     with path.open('w') as f:
         f.write(content)
 
@@ -58,21 +63,25 @@ def generate_post(args=None):
         subprocess.call([args.editor, str(path) + ':{}'.format(edit_line)])
 
 def __get_date_formats():
-    time = __get_time()
+    t = __get_time()
+    formatted = {}
 
-    meta_format = DATE_COMMON + " {:02}:{:02}"
-    time_for_meta = meta_format.format(time.year, time.month, time.day, time.hour, time.minute)
+    meta_fmt = DATE_COMMON + " {:02}:{:02}"
+    formatted['meta'] = meta_fmt.format(t.year, t.month, t.day, t.hour, t.minute)
 
-    file_format = "{:02}-{:02}{:02}"
-    time_for_file = file_format.format(time.day, time.hour, time.minute)
+    file_fmt = "{:02}-{:02}{:02}"
+    formatted['file'] = file_fmt.format(t.day, t.hour, t.minute)
 
-    dir_format = "{:02}/{:02}"
-    date_for_dir = dir_format.format(time.year, time.month)
+    slug_fmt = "{:02}-{:02}-{:02}{:02}"
+    formatted['slug'] = slug_fmt.format(t.month, t.day, t.hour, t.minute)
 
-    return time_for_file, time_for_meta, date_for_dir
+    dir_fmt = "{:02}/{:02}"
+    formatted['dir'] = dir_fmt.format(t.year, t.month)
+
+    return formatted
 
 
-def __get_directory(date_for_dir, category=None, post_type=None):
+def __get_dir(date_for_dir, category=None, post_type=None):
     # Start with the blog content directory.
     directory = CONTENT
 
@@ -97,18 +106,19 @@ def __get_body(use_input):
     return text
 
 
-def __get_header(time_for_meta: str,
-                 time_for_slug: str,
+def __get_header(formatted_times: dict,
                  name: str = None,
                  category: str = None,
                  tags: str = None,
                  slug: str = None,
                  post_type: str = None,
                  title: str = None,
-                 **kwargs):
+                 draft: bool = False,
+                 **kwargs) -> str:
     """Build the header string to render into the file.
 
     Args:
+        formatted_times: the different time stamp formats available
         name: The file name.
         category: The category in which to file the post.
         tags: Any tags associated with the post.
@@ -142,7 +152,7 @@ def __get_header(time_for_meta: str,
 
     """
     title = title if title is not None else '""'
-    header = TEMPLATE.format(title=title, date=time_for_meta)
+    header = TEMPLATE.format(title=title, date=formatted_times['meta'])
 
     if tags is not None:
         header += TEMPLATE_TAGS.format(tags=tags)
@@ -152,7 +162,7 @@ def __get_header(time_for_meta: str,
 
     # Microblog posts are a special case for category and slug.
     if post_type == 'micro':
-        header += TEMPLATE_SLUG.format(slug=time_for_slug)
+        header += TEMPLATE_SLUG.format(slug=formatted_times['slug'])
         header += TEMPLATE_CATEGORY.format(category=post_type)
 
     else:
@@ -161,6 +171,9 @@ def __get_header(time_for_meta: str,
 
         if category is not None:
             header += TEMPLATE_CATEGORY.format(category=category)
+
+    if draft:
+        header += TEMPLATE_DRAFT
 
     header += TEMPLATE_END
     return header
@@ -197,6 +210,8 @@ def __parse_args():
     parser.add_argument('-t', '--tags', help='Tags associated with the post.')
     parser.add_argument('-n', '--name', help='Specify the file name to use.')
     parser.add_argument('--title', help='The post title')
+    parser.add_argument('--draft', help='Create the post as a "draft"',
+                        action='store_true', default=False)
 
     input_group = parser.add_mutually_exclusive_group()
     exclusion =  ' Note: -i and -e are mutually exclusive.'

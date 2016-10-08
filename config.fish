@@ -22,31 +22,28 @@ set __fish_git_prompt_char_stashstate '%'
 set __fish_git_prompt_char_upstream_ahead '<'
 set __fish_git_prompt_char_upstream_behind '>'
 
-
 function fish_prompt
   set last_status $status
 
-  printf '
-╭─'
   set_color blue
-  printf '%s' (whoami)
+  printf '
+%s' (whoami)
   set_color normal
   printf '@'
   set_color blue
   printf '%s' (hostname)
   set_color normal
-  printf ' '
 
   set_color $fish_color_cwd
-  printf '%s' (prompt_pwd)
+  printf ' %s' (prompt_pwd)
   set_color normal
 
-  printf '%s ' (__fish_git_prompt)
+  printf '%s' (__fish_git_prompt)
 
   set_color normal
 
   printf '
-╰$ '
+➾ '
 end
 
 function fish_right_prompt
@@ -56,9 +53,11 @@ end
 # Updates to PATH
 set -gx PATH $HOME/bin $HOME/.cargo/bin $PATH
 
+set -gx ATOM_PATH /Applications/dev
+
 # Aliases
 alias git "hub"
-alias vless "vim -u /usr/share/vim/vim73/macros/less.vim"
+alias vless "vim -u /usr/share/vim/vim74/macros/less.vim"
 
 # Tool setup, completion, etc.
 status --is-interactive; and source (pyenv init -|psub)
