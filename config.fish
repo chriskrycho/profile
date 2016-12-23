@@ -43,7 +43,7 @@ function fish_prompt
   set_color normal
 
   printf '
-➾ '
+=> '
 end
 
 function fish_right_prompt
@@ -54,6 +54,10 @@ end
 set -gx PATH $HOME/bin $HOME/.cargo/bin $PATH
 
 set -gx ATOM_PATH /Applications/dev
+
+set -Ux EDITOR "subl"
+
+set -gx RUST_SRC_PATH $HOME/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src
 
 # Aliases
 alias git "hub"

@@ -1,0 +1,128 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+        "key": "alt+b",
+        "command": "cursorWordStartLeft",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+f",
+        "command": "cursorWordEndRight",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+[",
+        "command": "editor.fold",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+]",
+        "command": "editor.unfold",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "commandId",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "showNextParameterHint",
+        "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+    },
+    { 
+        "key": "ctrl+n",
+        "command": "selectNextSuggestion",
+        "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "search.focus.nextInputBox",
+        "when": "inputBoxFocus && searchViewletVisible" 
+    },
+    {
+        "key": "ctrl+n",
+        "command": "repl.action.historyNext",
+        "when": "editorTextFocus && inDebugRepl && onLastDebugReplLine" 
+    },
+    
+    {
+        "key": "ctrl+p",
+        "command": "showPrevParameterHint",
+        "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+    },
+    { 
+        "key": "ctrl+p",
+        "command": "selectPrevSuggestion",
+        "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "search.focus.previousInputBox",
+        "when": "inputBoxFocus && searchViewletVisible" 
+    },
+    {
+        "key": "ctrl+p",
+        "command": "repl.action.historyPrevious",
+        "when": "editorTextFocus && inDebugRepl && onLastDebugReplLine" 
+    },
+
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+v",
+        "command": "cursorPageDown",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+d",
+        "command": "deleteWordRight",
+        "when": "editorTextFocus"
+    },
+    { 
+        "key": "cmd+\\",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    { 
+        "key": "shift+ctrl+cmd+n",
+        "command": "editor.action.insertCursorBelow",
+        "when": "editorTextFocus" 
+    },
+    { 
+        "key": "shift+ctrl+cmd+p",
+        "command": "editor.action.insertCursorAbove",
+        "when": "editorTextFocus" 
+    },
+    {
+        "key": "alt+d",
+        "command": "deleteWordRight",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "editor.action.clipboardPasteAction",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "cursorEndSelect",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "extension.transpose",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "center-editor-window.center",
+        "when": "editorTextFocus"
+    },
+    { "key": "shift+cmd+\\",            "command": "workbench.files.action.showActiveFileInExplorer" },
+]
