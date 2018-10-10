@@ -19,19 +19,18 @@ set __fish_git_prompt_char_dirtystate '!'
 set __fish_git_prompt_char_stagedstate '+'
 set __fish_git_prompt_char_untrackedfiles '?'
 set __fish_git_prompt_char_stashstate '%'
-set __fish_git_prompt_char_upstream_ahead '<'
-set __fish_git_prompt_char_upstream_behind '>'
+set __fish_git_prompt_char_upstream_ahead '↑'
+set __fish_git_prompt_char_upstream_behind '↓'
 
 function fish_prompt
   set last_status $status
-  set_color magenta
+  set_color blue
   printf '
-%s' (whoami)
+╭─ %s' (whoami)
   set_color normal
   printf '@'
   set_color magenta
   printf '%s' (hostname)
-  set_color normal
   printf ' '
   set_color $fish_color_cwd
   printf ' %s' (prompt_pwd)
@@ -41,28 +40,30 @@ function fish_prompt
 
   set_color normal
   printf '
-=> '
+╰─$ '
 end
 
 function fish_right_prompt
-  printf (date "+$c2%H$c0:$c2%M$c0:$c2%S")
+  # printf (date "+$c2%H$c0:$c2%M$c0:$c2%S")
 end
 
 # Updates to PATH
-set -gx PATH $HOME/bin $HOME/.cargo/bin $PATH
+set -gx PATH $HOME/bin $HOME/.cargo/bin /usr/local/share/dotnet $PATH
 
 set -gx ATOM_PATH /Applications/dev
 
-set -Ux EDITOR "subl"
+set -gx EDITOR "code"
 
 set -gx RUST_SRC_PATH $HOME/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src
 
+# GPG config
+set -gx GPG_TTY (tty)
+
 # Aliases
 alias git "hub"
-alias vless "vim -u /usr/share/vim/vim74/macros/less.vim"
+alias vless "vim -u /usr/share/vim/vim80/macros/less.vim"
+alias caret "open -a 'Caret Beta.app'"
 
 # Tool setup, completion, etc.
 status --is-interactive; and source (pyenv init -|psub)
 status --is-interactive; and source (nodenv init -|psub)
-status --is-interactive; and source (rbenv init -|psub)
-status --is-interactive; and gulp --completion=fish | source
