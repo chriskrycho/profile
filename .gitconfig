@@ -1,0 +1,72 @@
+# shareable
+[user]
+	name = Chris Krycho
+	email = hello@chriskrycho.com
+[color]
+    ui = auto
+[push]
+    default = current
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    cb = checkout -b
+    r = rebase
+    f = fetch
+    m = merge
+    log = log --show-signature
+    branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+    remotes = remote -v
+    stashes = stash list
+    b = branches
+    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+    unmerged = diff --name-only --diff-filter=U
+    unstage = reset -q HEAD --
+    discard = checkout --
+    uncommit = reset --mixed HEAD~
+    amend = commit --amend
+[rebase]
+    autosquash = true
+[merge]
+    ff = only
+[color "decorate"]
+    HEAD = white
+    branch = cyan
+    remoteBranch = green
+    tag = blue bold italic
+[format]
+    pretty = "commit: %C(yellow bold)%H%Creset%C(auto)%n%-%w(76,4,4)%+D%w(0,0,0)%ndate:   %aD%nauthor: %cN %C(italic)<%cE>%Creset%n%n%w(0,4,4)%s%n%n%w(0,4,4)%b"
+
+
+# machine-specific
+[user]
+	signingkey = FA77559C18FE8A08
+[core]
+    excludesfile = /Users/chris/.gitignore_global
+    autocrlf = input
+	editor = code --wait
+[merge]
+    tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+    trustexitcode = true
+[merge]
+    tool = Kaleidoscope
+[difftool "Kaleidoscope"]
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+    prompt = false
+[mergetool]
+    prompt = false
+[diff]
+    tool = Kaleidoscope
+[gpg]
+    program = /usr/local/MacGPG2/bin/gpg
+[commit]
+    gpgsign = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
