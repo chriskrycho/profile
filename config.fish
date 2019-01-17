@@ -24,12 +24,13 @@ set __fish_git_prompt_char_upstream_behind '↓'
 
 function fish_prompt
   set last_status $status
-  set_color blue
   printf '
-╭─ %s' (whoami)
+'
+  set_color blue
+  printf '%s' (whoami)
   set_color normal
   printf '@'
-  set_color magenta
+  set_color blue 
   printf '%s' (hostname)
   printf ' '
   set_color $fish_color_cwd
@@ -40,7 +41,7 @@ function fish_prompt
 
   set_color normal
   printf '
-╰─$ '
+~> '
 end
 
 function fish_right_prompt
@@ -48,7 +49,7 @@ function fish_right_prompt
 end
 
 # Updates to PATH
-set -gx PATH $HOME/bin $HOME/.cargo/bin /usr/local/share/dotnet $PATH
+set -gx PATH $HOME/bin $HOME/.notion $HOME/.cargo/bin /usr/local/share/dotnet $PATH
 
 set -gx ATOM_PATH /Applications/dev
 
